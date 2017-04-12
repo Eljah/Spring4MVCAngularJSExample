@@ -5,18 +5,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import com.websystique.springmvc.model.User;
 
 @Service("userService")
+@Scope(value="session",  proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserServiceImpl implements UserService{
 	
-	private static final AtomicLong counter = new AtomicLong();
+	private final AtomicLong counter = new AtomicLong();
 	
-	private static List<User> users;
-	
-	static{
+	private List<User> users;
+
+	UserServiceImpl()
+	{
 		users= populateDummyUsers();
 	}
 
@@ -70,7 +74,7 @@ public class UserServiceImpl implements UserService{
 		users.clear();
 	}
 
-	private static List<User> populateDummyUsers(){
+	private List<User> populateDummyUsers(){
 		List<User> users = new ArrayList<User>();
 		users.add(new User(counter.incrementAndGet(),"Sam", "NY", "sam@abc.com"));
 		users.add(new User(counter.incrementAndGet(),"Tomy", "ALBAMA", "tomy@abc.com"));
