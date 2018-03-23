@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.websystique.springmvc.model.User;
 
 @Service("userService")
-@Scope(value="session",  proxyMode = ScopedProxyMode.TARGET_CLASS)
+//@Scope(value="session",  proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserServiceImpl implements UserService{
 	
 	private final AtomicLong counter = new AtomicLong();
